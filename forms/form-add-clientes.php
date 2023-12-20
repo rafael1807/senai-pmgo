@@ -44,11 +44,11 @@
     </div>
 
     <div class="input-field col s12"> 
-        <input type="file" id="formFoto" name="formFoto" accept="image/png, image/jpeg" />
+        <input type="file" id="formFoto" name="formFoto" accept="image/*" />
     </div>
 
     <div class="input-field col s12">
-        <input type="submit" value="cadastrar" class="btn">
+        <input type="submit" value="cadastrar" class="btn" name="enviar_dados">
         <input type="reset" value="limpar" class="btn red">
     </div>  
     

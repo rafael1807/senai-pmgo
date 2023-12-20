@@ -1,8 +1,7 @@
 <?php
-session_start();
 require_once 'crudClientes.php';
 class Clientes extends Connection implements crudClientes{
-    private $codigo, $nmCompleto, $dn, $telefone, $celular, $sexo, $rg, $cpf, $endereco, $email,$foto;
+    private $codigo, $nmCompleto, $dn, $telefone, $celular, $sexo, $rg, $cpf, $endereco, $email;
    
     // setters: enviam informações para os atributos
 
@@ -36,9 +35,7 @@ class Clientes extends Connection implements crudClientes{
     protected function setEmail($email){
         $this ->email = $email;
     }
-    protected function setFoto($foto){
-        $this ->foto = $foto;
-    }
+    
     
     // getters: recebem informações para os atributos
     protected function getCodigo(){
@@ -71,12 +68,10 @@ class Clientes extends Connection implements crudClientes{
     protected function getEmail(){
         return $this ->email;
     }
-    protected function getFoto(){
-        return $this ->foto;
-
+    
 
     // Métodos específicos 
-    public function dadosDoFormulario($nmCompleto, $dn, $telefone, $celular, $sexo, $rg, $cpf, $endereco, $email, $foto){
+    public function dadosDoFormulario($nmCompleto, $dn, $telefone, $celular, $sexo, $rg, $cpf, $endereco, $email){
         $this ->setNmCompleto($nmCompleto);
         $this ->setDn($dn);
         $this ->setTelefone($telefone);
@@ -85,8 +80,7 @@ class Clientes extends Connection implements crudClientes{
         $this ->setRg($rg);
         $this ->setCpf($cpf);
         $this ->setEndereco($endereco);
-        $this ->setEmail($email);
-        $this ->setFoto($foto);         
+        $this ->setEmail($email);         
     }
     // Métodos da Interface
 
@@ -100,11 +94,10 @@ class Clientes extends Connection implements crudClientes{
         $CPF = $this->getCpf();
         $Endereco = $this->getEndereco();
         $Email = $this->getEmail();
-        $Foto = $this->getFoto();
       
         $conn = $this->connect();
 
-        $sql = "INSERT INTO tb_clientes (`codigo`, `nmCompleto`, `dn`, `telefone`, `celular`, `sexo`, `rg`, `cpf`, `endereco`, `email`,'foto') VALUES (default,:NmCompleto,:Dn,:Telefone,:Celular,:Sexo,:Rg,:CPF,:Endereco,:Email,LOAD_FILE(:Foto)";
+        $sql = "INSERT INTO tb_clientes (`codigo`, `nmCompleto`, `dn`, `telefone`, `celular`, `sexo`, `rg`, `cpf`, `endereco`, `email`) VALUES (default,:NmCompleto,:Dn,:Telefone,:Celular,:Sexo,:Rg,:CPF,:Endereco,:Email)";
 
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':NmCompleto',$NmCompleto);
@@ -116,7 +109,7 @@ class Clientes extends Connection implements crudClientes{
         $stmt->bindParam(':CPF',$CPF);
         $stmt->bindParam(':Endereco',$Endereco);
         $stmt->bindParam(':Email',$Email);
-        $stmt->bindParam(':Foto',$Foto);
+      
         
         if($stmt -> execute()):
             $_SESSION['sucesso'] = 'Cadastrado com sucesso!';

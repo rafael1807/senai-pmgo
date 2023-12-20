@@ -7,6 +7,12 @@ require_once "../config/header.inc.html"
     <div class="col s12"><p>&nbsp;</p>
         <h5 class light> Cadastro de Clientes</h5><hr>
         <?php 
+
+        if(isset($_SESSION['msg'])){
+            echo $_SESSION['msg'];
+            unset ($_SESSION['msg']);
+        }
+
         if (isset($_SESSION['sucesso'])):
             echo"<p class='center green lighten-2 white-text' padding:10px>";
             echo $_SESSION['sucesso'];
